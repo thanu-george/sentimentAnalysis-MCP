@@ -1,18 +1,18 @@
-from pydantic import BaseModel
 from fastapi import FastAPI
-from textblob import TextBlob
+from pydantic import BaseModel
+from shared.utils import summarize, sentiment_analysis
 
 app = FastAPI()
 
-class TextInput(BaseModel):
+class InputText(BaseModel):
     text: str
 
 @app.post("/analyze")
-def analyze_sentiment(input: TextInput):
-    blob = TextBlob(input.text)
-    sentiment = blob.sentiment
+def analyze(input: InputText):
+    summary = summarize(input.text)
+    sentiment = sentiment_analysis(input.text)
+
     return {
-       "polarity":round(sentiment.polarity,2),
-       "subjectivity":round(sentiment.subjectivity,2),
-       "assessment":"positive" if sentiment.polarity > 0 else "negative" if sentiment.polarity < 0 else "neutral"
-   }
+        "summary": summary,
+        "sentiment": sentiment
+    }

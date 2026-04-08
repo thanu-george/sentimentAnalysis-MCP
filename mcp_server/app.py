@@ -1,23 +1,20 @@
 import json
 import gradio as gr
-from textblob import TextBlob
+from shared.utils import summarize, sentiment_analysis
 
-def sentiment_analysis(text:str)->str:
-    blob = TextBlob(text)
-    sentiment = blob.sentiment
-    result={
-       "polarity":round(sentiment.polarity,2),
-       "subjectivity":round(sentiment.subjectivity,2),
-       "assessment":"positive" if sentiment.polarity > 0 else "negative" if sentiment.polarity < 0 else "neutral"
-   }
-    return json.dumps(result)
+# Tool 1
+def summarize_tool(text: str) -> str:
+    return summarize(text)
+
+# Tool 2
+def sentiment_tool(text: str) -> str:
+    return json.dumps(sentiment_analysis(text))
 
 demo = gr.Interface(
-    fn=sentiment_analysis,
-    inputs=gr.Textbox(label="Enter text for analysis"),
-    outputs=gr.Textbox(label="Sentiment Analysis Result"),
-    title="Sentiment Analysis ",
-    description="Analyze the sentiment of text using TextBlob"
+    fn=sentiment_tool,
+    inputs=gr.Textbox(label="Enter review"),
+    outputs=gr.Textbox(label="Sentiment"),
+    title="MCP Review Tools"
 )
 
 if __name__ == "__main__":
