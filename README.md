@@ -17,17 +17,21 @@ Control Flow: Dynamic and intent-driven.
 Execution: The LLM (Qwen2.5-coder) inspects the available MCP tools and decides which tool to call (or skip) based on the user's prompt.
 Use Case: Best for complex, multi-step tasks where the "right" answer depends on context and nuance.
 
-## Key Learning
-| Feature      | FastAPI (Hardcoded)              | MCP Agent (Ollama/Qwen)                     |
-|--------------|----------------------------------|---------------------------------------------|
-| Logic        | Executes raw Python `utils.py`   | Interprets tool results through LLM reasoning |
-| Summary      | Simple string slicing (`text[:80]`) | Context-aware summarization and formatting |
-| Flexibility  | Rigorous / Rigid                | Adaptive / Intelligent                      |
-
-Insight: In the MCP setup, the Agent doesn't just call a function. If the tool provides a raw or truncated result, the Agent's reasoning loop polishes that data into a user-friendly response, effectively upgrading the quality of the underlying code.
+## Insight
+In the MCP setup, the Agent doesn't just call a function. If the tool provides a raw or truncated result, the Agent's reasoning loop polishes that data into a user-friendly response, effectively upgrading the quality of the underlying code.
 
 ## Tech Stack
-Frameworks: FastAPI, Streamlit, Gradio
-AI Orchestration: MCP (Model Context Protocol), smolagents
-Models: Ollama (Qwen2.5-coder)
+Frameworks: FastAPI, Streamlit, Gradio\
+AI Orchestration: MCP (Model Context Protocol), smolagents\
+Models: Ollama (Qwen2.5-coder)\
 NLP: TextBlob, Python
+
+##How to Run
+1. Start the fastapi server\
+uvicorn fastapi_app.main:app --reload --port 8000
+
+2. Start the MCP/Gradio Server\
+python -m mcp_server.server
+
+3. Launch Streamlit
+streamlit run ui/streamlit_app.py
