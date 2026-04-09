@@ -26,7 +26,7 @@ AI Orchestration: MCP (Model Context Protocol), smolagents\
 Models: Ollama (Qwen2.5-coder)\
 NLP: TextBlob, Python
 
-##How to Run
+## How to Run
 1. Start the fastapi server\
 uvicorn fastapi_app.main:app --reload --port 8000
 
