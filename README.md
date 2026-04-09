@@ -18,7 +18,7 @@ Execution: The LLM (Qwen2.5-coder) inspects the available MCP tools and decides 
 Use Case: Best for complex, multi-step tasks where the "right" answer depends on context and nuance.
 
 ## Insight
-In the MCP setup, the Agent doesn't just call a function. If the tool provides a raw or truncated result, the Agent's reasoning loop polishes that data into a user-friendly response, effectively upgrading the quality of the underlying code.
+In the MCP setup, the Agent doesn't just call a function. If the tool provides a raw or truncated result, the Agent's reasoning loop polishes that data into a user-friendly response, effectively upgrading the quality of the underlying code. It provides context-aware summarization and formatting
 
 ## Tech Stack
 Frameworks: FastAPI, Streamlit, Gradio\
@@ -33,5 +33,5 @@ uvicorn fastapi_app.main:app --reload --port 8000
 2. Start the MCP/Gradio Server\
 python -m mcp_server.server
 
-3. Launch Streamlit
+3. Launch Streamlit\
 streamlit run ui/streamlit_app.py
